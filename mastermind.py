@@ -1,4 +1,4 @@
-# Importing modules
+### Importing modules
 from random import randint
 from time import strftime
 from pathlib import *
@@ -32,7 +32,7 @@ while (start.lower() == 'y'): # Query for another game can reset the value
     # Instructions
     print ("A set of 4 colors is generated, with the numbers 1-6 representing the colors.\nYou must attempt to figure out the sequence by guessing. You have 8 tries.\n")
     print (" Color map: 1-White 2-Blue 3-Red 4-Yellow 5-Green 6-Purple\n-------------------------")
-    # print (" Number to guess:", answer, "\n-------------------------") # For debugging purposes, uncomment when needed
+    print (" Number to guess:", answer, "\n-------------------------") # For debugging purposes, uncomment when not needed
 
     # Log file prints
     logFile.write(("\n\nGame start!\t(Time: ") +str(strftime('%T')) +(")\n-------------\n Answer: " +str(answer) +("\n-------------\n\t\tGuess\t\tHint\n")))
