@@ -1,4 +1,4 @@
-### Importing modules
+# Importing modules
 from random import randint
 from time import strftime
 from pathlib import *
