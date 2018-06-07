@@ -1,4 +1,4 @@
-### Importing modules
+# Importing modules
 from random import randint
 from time import strftime
 from pathlib import *
@@ -22,7 +22,7 @@ if (start.lower() == 'y'): # Open log file only if starting. Statement in sepera
 
     
 while (start.lower() == 'y'): # Query for another game can reset the value               
-    print ("\n----------------------------------------------------------------------------- \n Starting new game... \n-----------------------------------------------------------------------------") # Game start block
+    print ("\n--------------------------------------------------------------------------- \n Starting new game... \n---------------------------------------------------------------------------") # Game start block
 
     # Hidden pegs
     for i in range(4):
@@ -31,8 +31,8 @@ while (start.lower() == 'y'): # Query for another game can reset the value
 
     # Instructions
     print ("A set of 4 colors is generated, with the numbers 1-6 representing the colors.\nYou must attempt to figure out the sequence by guessing. You have 8 tries.\n")
-    print (" Color map: 1-White 2-Blue 3-Red 4-Yellow 5-Green 6-Purple\n-----------------------------------------------------------------------------")
-    print (" Number to guess:", answer, "\n-----------------------------------------------------------------------------") # For debugging purposes, uncomment when not needed
+    print (" Color map: 1-White 2-Blue 3-Red 4-Yellow 5-Green 6-Purple\n---------------------------------------------------------------------------")
+    print (" Number to guess:", answer, "\n---------------------------------------------------------------------------") # For debugging purposes, uncomment when not needed
 
     # Log file prints
     logFile.write(("\n\nGame start!\t(Time: ") +str(strftime('%T')) +(")\n-----------------------------------------------------------------\n Answer: " +str(answer) +("\n-----------------------------------------------------------------\n\t\tGuess\t\tHint\n")))
@@ -68,6 +68,8 @@ while (start.lower() == 'y'): # Query for another game can reset the value
         for x in range (4):
             if tempguess[x] in tempanswer:
                 result[hintpeg] = '0'
+                tempanswer[tempanswer.index(tempguess[x])] = '-'
+                tempguess[x] = '+'
                 hintpeg += 1
 
         print ("\n Result:", (' '.join(result)),"\n-----------------------------------------------------------------------------")
