@@ -1,3 +1,3 @@
-from time import strftime
+guess = str(input("\tGuess: "))
 
-print (("Game date - ") +str(strftime('%d-%m-%Y')))
+print (guess +1)

@@ -4,16 +4,16 @@ from time import strftime
 from pathlib import *
 
 # Variables
-answer = [1] * 4
+answer = [0] * 4
 result = ['-','-','-','-'] # convert using (''.join(result)) when printing
-tempguess = []
-tempanswer = []
+tempGuess = []
+tempAnswer = []
 logFileName = ("MastermindLog " +str(strftime('%d-%m-%Y')) +(".txt")) # Log file name, generated with current date
 
 # Main code
-start = input("Start game (Y/N): ")
+gameStart = input("Start game (Y/N): ")
 
-if (start.lower() == 'y'): # Open log file only if starting. Statement in seperate 'if' so as not to be repeated in loop
+if (gameStart.lower() == 'y'): # Open log file only if starting. Statement in seperate 'if' so as not to be repeated in loop
     if (Path(logFileName).is_file()): # If first game of day, write this
         logFile = open(logFileName, 'a')
     else:
@@ -21,7 +21,7 @@ if (start.lower() == 'y'): # Open log file only if starting. Statement in sepera
         logFile.write(("GAME SESSION START - ") +str(strftime('%d-%m-%Y')) +("\n===================================\n"))
 
     
-while (start.lower() == 'y'): # Query for another game can reset the value               
+while (gameStart.lower() == 'y'): # Query for another game can reset the value               
     print ("\n----------------------------------------------------------------------------- \n Starting new game... \n-----------------------------------------------------------------------------") # Game start block
 
     # Hidden pegs
@@ -49,27 +49,27 @@ while (start.lower() == 'y'): # Query for another game can reset the value
             logFile.write("Try " +str(turn) +("\t\t") +str(guess) +("\t\t") +(''.join(result)) +("\n"))
             break
         # Check if guess is within rules
-        elif (len(guess) > 4) or not(guess.isnumeric()) or (any(y in guess for y in ['7','8','9','0'])):
+        elif (len(guess) != 4) or not(guess.isnumeric()) or (any(y in guess for y in ['7','8','9','0'])):
             print ("Invalid input. Try again... \n-----------------------------------------------------------------------------")
             continue
 
         # Compare guess to answer
         hintpeg = 0
-        tempguess = list(map(int,(list(guess))))
-        tempanswer = list(map(int,(list(answer))))
+        tempGuess = list(map(int,(list(guess))))
+        tempAnswer = list(map(int,(list(answer))))
         # First run, find index matches and exclude them
-        for x in range(4):
-            if tempguess[x] == tempanswer[x]:
+        for indexCheck in range(4):
+            if tempGuess[indexCheck] == tempAnswer[indexCheck]:
                 result[hintpeg] = '1'
-                tempguess[x] = '+'
-                tempanswer[x] = '*'
+                tempGuess[indexCheck] = '+'
+                tempAnswer[indexCheck] = '*'
                 hintpeg += 1
         # Second run, find content matches
-        for x in range (4):
-            if tempguess[x] in tempanswer:
+        for valueCheck in range (4):
+            if tempGuess[valueCheck] in tempAnswer:
                 result[hintpeg] = '0'
-                tempanswer[tempanswer.index(tempguess[x])] = '-'
-                tempguess[x] = '+'
+                tempAnswer[tempAnswer.index(tempGuess[valueCheck])] = '*'
+                tempGuess[valueCheck] = '+'
                 hintpeg += 1
 
         print ("\n Result:", (' '.join(result)),"\n-----------------------------------------------------------------------------")
@@ -88,15 +88,15 @@ while (start.lower() == 'y'): # Query for another game can reset the value
     if result == ['1','1','1','1']:
         print ("You won!")
         logFile.write("Game end - User won.\n--------------------------------------------\n")
-        start = input("Start new game (Y/N): ") # If N, loop is broken.
+        gameStart = input("Start new game (Y/N): ") # If N, loop is broken.
     elif (guess == '0000'): # '0000' without win/loss state
         print ("\nManual termination accepted.")
         logFile.write("Game end - User terminated program.\n--------------------------------------------\n")
-        start = 'N'
+        gameStart = 'N'
     else:
         print ("Better luck next time.")
-        logFile.write("Game end - User won.\n--------------------------------------------\n")
-        start = input("Start new game (Y/N): ") # If N, loop is broken.
+        logFile.write("Game end - User lost.\n--------------------------------------------\n")
+        gameStart = input("Start new game (Y/N): ") # If N, loop is broken.
                 
 logFile.close() # Close log file    
 print ("\n Exiting...")
